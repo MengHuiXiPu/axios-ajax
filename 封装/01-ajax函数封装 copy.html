@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="get">get请求测试</button>
+    <button id="post">post请求测试</button>
+    <button id="ajax">ajax请求测试</button>
+
+    <script>
+        // 函数：存储代码、实现代码复用；
+        // 特点1代码在多个地方执行；
+        // 2；独立的小功能；
+        function get(url, data, fn) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', url + '?' + data)
+            xhr.send(data);
+            xhr.onload = function () {
+                fn(xhr.responseText);
+            }
+        }
+        //get函数封装
+        document.getElementById('get').onclick = function () {
+            get('https://autumnfish.cn/api/cq', 'query=剑士', function (backData) {
+                console.log('1111');
+                console.log(backData);
+            })
+        }
+        function post(url, data, fn) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', url);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+            xhr.send(data);
+            xhr.onload = function () {
+                fn(xhr.responseText)
+            }
+        }
+        // 2.post测试接口
+        //     - 请求地址：https://autumnfish.cn/api/user/register
+        //     - 请求方法：post
+        //     - 请求参数：username
+        // * /
+        document.getElementById('post').onclick = function () {
+            post('https://autumnfish.cn/api/user/register', 'username=342342353523', function (datamsg) {
+                console.log(datamsg);
+            });
+        };
+
+    </script>
+</body>
+
+</html>
